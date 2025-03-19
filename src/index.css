@@ -1,0 +1,690 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes noise {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(-15%, 0); }
+  90% { transform: translate(10%, 5%); }
+}
+
+@keyframes crazyWave1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(5%, 5%) rotate(120deg); }
+  66% { transform: translate(-5%, 2%) rotate(240deg); }
+}
+
+@keyframes crazyWave2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-5%, -2%) rotate(-120deg); }
+  66% { transform: translate(2%, -5%) rotate(-240deg); }
+}
+
+@keyframes crazyWave3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-3%, 5%) rotate(90deg); }
+  66% { transform: translate(5%, -3%) rotate(180deg); }
+}
+
+/* Text fade-in and float animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Gradient shift animation */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Add after your existing animations */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.code-element {
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
+}
+
+.code-snippet {
+  position: absolute;
+  font-family: 'Fira Code', monospace;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+.floating-icon {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Modify different float timings for variety */
+.code-element:nth-child(2n) {
+  animation-duration: 4s;
+}
+
+.code-element:nth-child(3n) {
+  animation-duration: 5s;
+}
+
+.code-element:hover {
+  transform: scale(1.2);
+}
+
+.code-snippet:hover {
+  opacity: 0.4 !important;
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  animation: noise 8s steps(10) infinite;
+  pointer-events: none;
+}
+
+.gradient-blob-1,
+.gradient-blob-2,
+.gradient-blob-3 {
+  position: absolute;
+  width: 120vh;
+  height: 120vh;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  transform-origin: center;
+  transition: all 0.5s ease;
+}
+
+.gradient-blob-1 {
+  background: radial-gradient(circle at 60% 40%, rgb(76, 29, 149) 0%, transparent 70%);
+  animation: crazyWave1 8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  left: calc(45% - 60vh);
+  bottom: -20vh;
+}
+
+.gradient-blob-2 {
+  background: radial-gradient(circle at 40% 60%, rgb(190, 24, 93) 0%, transparent 70%);
+  animation: crazyWave2 7s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  left: calc(55% - 60vh);
+  bottom: -30vh;
+}
+
+.gradient-blob-3 {
+  background: radial-gradient(circle at 50% 50%, rgb(109, 40, 217) 0%, transparent 70%);
+  animation: crazyWave3 10s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  left: calc(50% - 60vh);
+  bottom: -25vh;
+}
+
+.gradient-blob-1:hover,
+.gradient-blob-2:hover,
+.gradient-blob-3:hover {
+  filter: blur(100px);
+  opacity: 0.5;
+}
+
+/* Add these new classes */
+.animate-fade-in {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+/* Enhanced button styles */
+.glass-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: glowPulse 3s infinite;
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.glass-button:hover::before {
+  left: 100%;
+}
+
+/* Gradient text animation */
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    #fff,
+    #a78bfa,
+    #fff
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientShift 3s linear infinite;
+}
+
+/* Add after existing animations */
+
+@keyframes techFloat {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(2px, -2px) rotate(1deg);
+  }
+  75% {
+    transform: translate(-2px, 2px) rotate(-1deg);
+  }
+}
+
+@keyframes lineFlow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes termPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.tech-line {
+  stroke-dasharray: 1000;
+  animation: lineFlow 15s linear infinite;
+}
+
+.tech-term {
+  font-family: 'Fira Code', monospace;
+  animation: termPulse 3s ease-in-out infinite, techFloat 5s ease-in-out infinite;
+}
+
+/* Matrix rain effect */
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, 
+    rgba(0, 255, 0, 0.03) 0%,
+    rgba(0, 255, 0, 0) 100%
+  );
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+/* Enhanced floating icons */
+.floating-icon {
+  filter: drop-shadow(0 0 8px currentColor);
+  animation: techFloat 3s ease-in-out infinite;
+}
+
+/* Modify code element animations */
+.code-element {
+  animation: float 3s ease-in-out infinite, techFloat 5s ease-in-out infinite;
+}
+
+.code-element:nth-child(3n) {
+  animation-delay: -2s;
+}
+
+.code-element:nth-child(5n) {
+  animation-delay: -3s;
+}
+
+/* Enhanced code snippets */
+.code-snippet {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.code-snippet:hover {
+  transform: scale(1.05);
+  opacity: 0.6 !important;
+}
+
+/* Doodle Characters */
+.doodle-container {
+  transform-origin: center;
+  animation: float 4s ease-in-out infinite;
+}
+
+.character {
+  position: relative;
+  width: 24px;
+  height: 32px;
+}
+
+.head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+.body {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px 8px 4px 4px;
+}
+
+/* Character Variations */
+.character-with-laptop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.character-with-coffee {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.character-thinking {
+  position: relative;
+}
+
+.character-thinking .head::after {
+  content: '?';
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.character-innovating {
+  position: relative;
+}
+
+.coding-sparkles {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2) rotate(15deg);
+    opacity: 1;
+  }
+}
+
+/* Character Animations */
+.doodle-container:nth-child(2n) {
+  animation-duration: 5s;
+  animation-delay: -2.5s;
+}
+
+.doodle-container:nth-child(3n) {
+  animation-duration: 6s;
+  animation-delay: -1s;
+}
+
+.doodle-container:hover .character {
+  transform: scale(1.1);
+}
+
+.character-with-laptop .laptop,
+.character-with-coffee .coffee,
+.character-thinking .lightbulb,
+.character-innovating .brain,
+.character-innovating .rocket {
+  transition: transform 0.3s ease;
+}
+
+.doodle-container:hover .laptop,
+.doodle-container:hover .coffee,
+.doodle-container:hover .lightbulb,
+.doodle-container:hover .brain,
+.doodle-container:hover .rocket {
+  transform: scale(1.2);
+}
+
+/* 3D Characters */
+.character-3d {
+  position: relative;
+  width: 200px;
+  height: 280px;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.character-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float 6s ease-in-out infinite;
+}
+
+.character-upper {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.speech-bubble {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.character-3d:hover .speech-bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.character-figure {
+  width: 120px;
+  height: 180px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.body {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Character Specifics */
+.developer .glasses {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+}
+
+.designer .hair {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 30px 30px 0 0;
+}
+
+.music-dev .headphones {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.coffee-lover .coffee-cup {
+  position: absolute;
+  bottom: 20px;
+  right: -20px;
+  width: 30px;
+  height: 40px;
+  background: rgba(139, 69, 19, 0.8);
+  border-radius: 6px 6px 12px 12px;
+}
+
+/* Hover Effects */
+.character-3d:hover .character-figure {
+  transform: translateY(-10px) rotate(5deg);
+}
+
+.character-3d:hover .floating-icon {
+  transform: scale(1.2);
+}
+
+/* Stagger animations */
+.character-3d:nth-child(1) .character-content {
+  animation-delay: 0s;
+}
+
+.character-3d:nth-child(2) .character-content {
+  animation-delay: -1.5s;
+}
+
+.character-3d:nth-child(3) .character-content {
+  animation-delay: -3s;
+}
+
+.character-3d:nth-child(4) .character-content {
+  animation-delay: -4.5s;
+}
+
+/* Add new path animations */
+@keyframes float-path-1 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(20px, -15px) rotate(5deg); }
+  66% { transform: translate(-15px, 25px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes float-path-2 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-25px, 15px) rotate(-8deg); }
+  66% { transform: translate(15px, -20px) rotate(8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes float-path-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(10px, -30px) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes float-path-4 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-20px, 20px) scale(0.9) rotate(10deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+.floating-element {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.floating-element .floating-icon {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.element-text {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: currentColor;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.path-1 {
+  animation: float-path-1 12s ease-in-out infinite;
+}
+
+.path-2 {
+  animation: float-path-2 15s ease-in-out infinite;
+}
+
+.path-3 {
+  animation: float-path-3 18s ease-in-out infinite;
+}
+
+.path-4 {
+  animation: float-path-4 20s ease-in-out infinite;
+}
+
+/* Enhanced code snippets */
+.code-snippet {
+  position: absolute;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: float 8s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.code-snippet:hover {
+  transform: scale(1.05);
+  opacity: 0.4 !important;
+}
+
+/* Nav hover effects */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+.nav-link.active::after {
+  width: 60%;
+  background: linear-gradient(to right, #a855f7, #ec4899);
+}
+
+/* Dropdown hover effects */
+.dropdown-item {
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  transform: translateX(4px);
+}
