@@ -17,20 +17,20 @@
 
 @keyframes crazyWave1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(5%, 5%) rotate(120deg); }
-  66% { transform: translate(-5%, 2%) rotate(240deg); }
+  33% { transform: translate(5%, 5%) rotate(5deg); }
+  66% { transform: translate(-5%, 2%) rotate(-5deg); }
 }
 
 @keyframes crazyWave2 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(-5%, -2%) rotate(-120deg); }
-  66% { transform: translate(2%, -5%) rotate(-240deg); }
+  33% { transform: translate(-5%, -2%) rotate(-5deg); }
+  66% { transform: translate(2%, -5%) rotate(5deg); }
 }
 
 @keyframes crazyWave3 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(-3%, 5%) rotate(90deg); }
-  66% { transform: translate(5%, -3%) rotate(180deg); }
+  33% { transform: translate(-3%, 5%) rotate(3deg); }
+  66% { transform: translate(5%, -3%) rotate(-3deg); }
 }
 
 /* Text fade-in and float animation */
@@ -114,53 +114,73 @@
   inset: -100%;
   width: 300%;
   height: 300%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.12;
-  mix-blend-mode: overlay;
-  animation: noise 8s steps(10) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+  animation: noise 12s steps(8) infinite;
   pointer-events: none;
+}
+
+/* Update the blob animations */
+@keyframes blobFloat {
+  0%, 100% { 
+    transform: translate(0, 0); 
+  }
+  33% { 
+    transform: translate(50px, -30px); 
+  }
+  66% { 
+    transform: translate(-40px, 20px); 
+  }
 }
 
 .gradient-blob-1,
 .gradient-blob-2,
 .gradient-blob-3 {
-  position: absolute;
-  width: 120vh;
-  height: 120vh;
+  position: fixed;
+  width: 150vh;
+  height: 150vh;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.4;
+  filter: blur(160px);
+  opacity: 0.3;
   mix-blend-mode: screen;
   transform-origin: center;
-  transition: all 0.5s ease;
+  transition: transform 0.2s ease-out;
+  background-size: 100% 100%;
+  background-position: center;
+  will-change: transform;
+  animation: blobFloat 15s ease-in-out infinite;
 }
 
 .gradient-blob-1 {
   background: radial-gradient(circle at 60% 40%, rgb(76, 29, 149) 0%, transparent 70%);
-  animation: crazyWave1 8s infinite cubic-bezier(0.4, 0, 0.6, 1);
-  left: calc(45% - 60vh);
-  bottom: -20vh;
+  animation-duration: 20s;
+  left: calc(45% - 75vh);
+  bottom: -35vh;
 }
 
 .gradient-blob-2 {
   background: radial-gradient(circle at 40% 60%, rgb(190, 24, 93) 0%, transparent 70%);
-  animation: crazyWave2 7s infinite cubic-bezier(0.4, 0, 0.6, 1);
-  left: calc(55% - 60vh);
-  bottom: -30vh;
+  animation-duration: 25s;
+  animation-delay: -5s;
+  left: calc(55% - 75vh);
+  bottom: -40vh;
 }
 
 .gradient-blob-3 {
   background: radial-gradient(circle at 50% 50%, rgb(109, 40, 217) 0%, transparent 70%);
-  animation: crazyWave3 10s infinite cubic-bezier(0.4, 0, 0.6, 1);
-  left: calc(50% - 60vh);
-  bottom: -25vh;
+  animation-duration: 22s;
+  animation-delay: -10s;
+  left: calc(50% - 75vh);
+  bottom: -45vh;
 }
 
 .gradient-blob-1:hover,
 .gradient-blob-2:hover,
 .gradient-blob-3:hover {
-  filter: blur(100px);
-  opacity: 0.5;
+  filter: blur(130px);
+  opacity: 0.4;
+  transition: all 0.5s ease;
 }
 
 /* Add these new classes */
@@ -687,4 +707,37 @@
 
 .dropdown-item:hover {
   transform: translateX(4px);
+}
+
+/* Journey section animations */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.journey-section {
+  animation: float-in 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Intersection Observer styles */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, visibility;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
 }

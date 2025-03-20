@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Menu, X, Code2, Terminal, Database, Globe, Cpu, Cloud,
   Binary, Blocks, Brain, Rocket, Server, Wifi, Network, Laptop,
   CircuitBoard, Microscope, Atom, Lightbulb, GitBranch, Code, Coffee, Sparkles,
   Monitor, Headphones, PenTool
 } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import About from './pages/About';
 
 function TechDoodle({ className, children }: { className: string; children: React.ReactNode }) {
   return (
@@ -23,20 +25,98 @@ const FloatingElement = ({ icon: Icon, className, text, delay = 0 }) => (
 );
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
+    <Router>
+      {/* Navigation bar */}
+      <div className="fixed top-0 left-0 right-0 flex items-center justify-between z-50 px-8 py-1">
+        <div className="animate-fade-in animate-delay-100">
+          <Link to="/">
+            <img 
+              src="/krishlabs-logo.png" 
+              alt="KrishLabs" 
+              className="h-16 w-auto"
+            />
+          </Link>
+        </div>
+
+        <nav className="animate-fade-in">
+          {/* Navigation Items */}
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="nav-link active relative px-3 py-1 rounded-full text-xs font-medium text-white bg-white/10 hover:bg-white/15 transition-all duration-300 group">
+              <span className="relative z-10">Home</span>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </Link>
+            <Link to="/about" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+              <span className="relative z-10">About</span>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+            </Link>
+            <Link to="/services" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+              <span className="relative z-10">Services</span>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+            </Link>
+            <Link to="/blog" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+              <span className="relative z-10">Blog</span>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+            </Link>
+            <Link to="/contact" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+              <span className="relative z-10">Contact</span>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+            </Link>
+            <Link to="/career" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+              <span className="relative z-10">Career</span>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+            </Link>
+          </div>
+        </nav>
+      </div>
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<Home scrollY={scrollY} />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
+  );
+}
+
+// Create a new Home component for the main page content
+function Home({ scrollY }: { scrollY: number }) {
+  return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#050109]">
-      {/* Updated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#ff2994]/10 via-[#070212] to-transparent"></div>
+      {/* Gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-t from-[#ff2994]/10 via-[#070212] to-transparent"></div>
       
       {/* Gradient waves */}
-      <div className="absolute inset-0">
-        <div className="gradient-blob-1"></div>
-        <div className="gradient-blob-2"></div>
-        <div className="gradient-blob-3"></div>
-        <div className="noise-overlay"></div>
+      <div className="fixed inset-0">
+        <div 
+          className="gradient-blob-1" 
+          style={{ 
+            transform: `translate(${scrollY * 0.05}px, ${scrollY * -0.03}px) rotate(${scrollY * 0.02}deg)`,
+          }}
+        ></div>
+        <div 
+          className="gradient-blob-2" 
+          style={{ 
+            transform: `translate(${scrollY * -0.05}px, ${scrollY * 0.03}px) rotate(${scrollY * -0.02}deg)`,
+          }}
+        ></div>
+        <div 
+          className="gradient-blob-3" 
+          style={{ 
+            transform: `translate(${scrollY * 0.03}px, ${scrollY * 0.05}px) rotate(${scrollY * 0.01}deg)`,
+          }}
+        ></div>
       </div>
 
       {/* Background Layer Elements (Below Text) */}
@@ -189,88 +269,56 @@ function App() {
         </code>
       </pre>
 
-      {/* Centered Navigation */}
-      <div className="fixed top-4 left-0 right-0 flex justify-center z-50">
-        {/* Logo */}
-        <div className="absolute left-4 animate-fade-in animate-delay-100 z-[60]">
-          <h1 className="text-2xl font-semibold gradient-text flex items-center">
-            <Code2 className="w-6 h-6 mr-2" />
-            KrishLabs
-          </h1>
-        </div>
+      {/* Journey Section */}
+      <div className="relative min-h-screen flex items-center justify-end px-8">
+        <div 
+          className="w-1/2 p-8 rounded-2xl backdrop-blur-sm bg-gradient-to-br from-white/5 to-white/10 
+          border border-white/10 transform hover:scale-[1.02] transition-all duration-500 group"
+        >
+          {/* Floating elements specific to this section */}
+          <div className="absolute -left-4 -top-4 w-20 h-20 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all duration-500"></div>
+          <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-pink-500/10 rounded-full blur-xl group-hover:bg-pink-500/20 transition-all duration-500"></div>
+          
+          {/* Content */}
+          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+            Our Journey and Vision
+          </h2>
+          
+          <div className="space-y-6">
+            <p className="text-gray-300 leading-relaxed relative group-hover:transform group-hover:translate-x-2 transition-all duration-500">
+              <span className="absolute -left-4 top-1/2 w-2 h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
+              At Krishlabs, we are dedicated to delivering exceptional software development services. Our expertise spans various technologies and industries, making us a reliable partner for businesses.
+            </p>
+            
+            <p className="text-gray-300 leading-relaxed relative group-hover:transform group-hover:translate-x-2 transition-all duration-700">
+              <span className="absolute -left-4 top-1/2 w-2 h-2 bg-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
+              Krishlabs was founded with a vision to revolutionize the software development landscape. Our journey began with a group of passionate developers seeking to create impactful solutions.
+            </p>
+          </div>
 
-        {/* Add these elements near the logo area */}
-        <div className="absolute top-[8%] left-[8%] z-30 opacity-20 path-2">
-          <div className="w-20 h-0.5 bg-gradient-to-r from-purple-400 to-transparent rounded-full"></div>
-        </div>
-
-        <div className="absolute top-[10%] left-[6%] z-30 opacity-15 path-3" style={{ animationDelay: "1.2s" }}>
-          <div className="w-3 h-3 rounded-full bg-pink-400/30"></div>
-        </div>
-
-        {/* Also add a subtle code element below the logo */}
-        <pre className="code-snippet top-[12%] left-[5%] rotate-[0deg] opacity-15 path-1 z-30">
-          <code className="text-xs text-cyan-400/50">
-            {`// innovate`}
-          </code>
-        </pre>
-
-        {/* Navigation with fade-in */}
-        <nav className="rounded-full backdrop-blur-md bg-white/5 border border-white/10 px-5 py-2 animate-fade-in">
-          <div className="flex items-center space-x-6">
-            {/* Navigation Items */}
-            <a href="#" className="nav-link active relative px-4 py-1 rounded-full text-sm font-medium text-white bg-white/10 hover:bg-white/15 transition-all duration-300 group">
-              <span className="relative z-10">Home</span>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </a>
-            <a href="#" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">About</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-            </a>
-            <a href="#" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">Services</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-            </a>
-            {/* More Dropdown */}
-            <div className="relative group">
-              <button className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group flex items-center">
-                <span className="relative z-10">More</span>
-                <ChevronDown className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:rotate-180" />
-                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-              </button>
-              <div className="absolute left-0 mt-2 w-36 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-[-10px]">
-                <div className="rounded-lg shadow-lg overflow-hidden backdrop-blur-md bg-black/50 border border-white/10">
-                  <div className="py-1">
-                    <a href="#" className="dropdown-item block px-4 py-2 text-sm text-gray-300 hover:text-white relative group">
-                      <span className="relative z-10">Blogs</span>
-                      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-                    </a>
-                    <a href="#" className="dropdown-item block px-4 py-2 text-sm text-gray-300 hover:text-white relative group">
-                      <span className="relative z-10">Contact</span>
-                      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-                    </a>
-                    <a href="#" className="dropdown-item block px-4 py-2 text-sm text-gray-300 hover:text-white relative group">
-                      <span className="relative z-10">Career</span>
-                      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-                    </a>
-                  </div>
-                </div>
-              </div>
+          {/* Interactive elements */}
+          <div className="absolute -right-20 top-1/2 transform -translate-y-1/2">
+            <div className="relative">
+              <FloatingElement 
+                icon={Brain} 
+                className="w-8 h-8 text-purple-400/70 group-hover:text-purple-400 transition-all duration-500"
+                delay={0.2}
+              />
             </div>
           </div>
-        </nav>
 
-        {/* Auth buttons with enhanced hover effects */}
-        <div className="absolute right-4 flex items-center space-x-4 animate-fade-in animate-delay-200">
-          <button className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-            <span className="relative z-10">Log in</span>
-            <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-          </button>
-          <button className="glass-button relative px-5 py-1.5 rounded-full text-sm font-medium bg-white/10 backdrop-blur-md border border-white/10 text-white group overflow-hidden">
-            <span className="relative z-10">Sign up</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-            <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700"></div>
-          </button>
+          {/* Decorative code snippet */}
+          <pre className="absolute -left-40 top-1/2 transform -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-500">
+            <code className="text-xs text-purple-400">
+              {`function journey() {
+  return {
+    passion,
+    innovation,
+    excellence
+  }
+}`}
+            </code>
+          </pre>
         </div>
       </div>
     </div>
