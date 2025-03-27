@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Menu, X, Code2, Terminal, Database, Globe, Cpu, Cloud,
   Binary, Blocks, Brain, Rocket, Server, Wifi, Network, Laptop,
   CircuitBoard, Microscope, Atom, Lightbulb, GitBranch, Code, Coffee, Sparkles,
-  Monitor, Headphones, PenTool, LucideIcon, ChevronRight
+  Monitor, Headphones, PenTool, LucideIcon, ChevronRight, User, Quote,
+  Linkedin, Instagram, Mail
 } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import About from './pages/About';
@@ -54,56 +55,126 @@ function App() {
 
   return (
     <Router>
-      {/* Navigation bar */}
-      <div className="fixed top-0 left-0 right-0 flex items-center justify-between z-50 px-8 py-3 bg-[#050109]/70 backdrop-blur-md border-b border-white/5 transition-all duration-300">
-        <div className="animate-fade-in animate-delay-100">
-          <Link to="/">
-            <img 
-              src="/krishlabs-logo.png" 
-              alt="KrishLabs" 
-              className="h-12 w-auto"
-            />
-          </Link>
+      <div className="font-[Poppins]">
+        {/* Navigation bar */}
+        <div className={`fixed top-0 left-0 right-0 flex items-center justify-between z-50 px-8 py-3 transition-all duration-300 border-b border-transparent ${
+          scrollY > 50 ? 'bg-[#050109]/70 backdrop-blur-md border-white/5' : ''
+        }`}>
+          <div className="animate-fade-in animate-delay-100">
+            <Link to="/">
+              <img 
+                src="/krishlabs-logo.png" 
+                alt="KrishLabs" 
+                className="h-12 w-auto"
+              />
+            </Link>
+          </div>
+
+          <nav className="animate-fade-in">
+            {/* Navigation Items */}
+            <div className="flex items-center space-x-4">
+              <Link to="/" className="nav-link active relative px-3 py-1 rounded-full text-xs font-medium text-white bg-white/10 hover:bg-white/15 transition-all duration-300 group">
+                <span className="relative z-10">Home</span>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </Link>
+              <Link to="/about" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+                <span className="relative z-10">About</span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+              </Link>
+              <Link to="/services" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+                <span className="relative z-10">Services</span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+              </Link>
+              <Link to="/blog" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+                <span className="relative z-10">Blog</span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+              </Link>
+              <Link to="/contact" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
+                <span className="relative z-10">Contact</span>
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+              </Link>
+              <button className="glass-button group relative ml-2 px-4 py-1.5 text-sm font-medium rounded-full bg-gradient-to-r from-[#f4921e]/30 to-[#ff5500]/30 backdrop-blur-md border border-white/10 text-white hover:from-[#f4921e]/40 hover:to-[#ff5500]/40 transition-all duration-300">
+                <span className="relative z-10 flex items-center">
+                  Get Started
+                  <Terminal className="w-3.5 h-3.5 ml-1.5" />
+                </span>
+              </button>
+            </div>
+          </nav>
         </div>
 
-        <nav className="animate-fade-in">
-          {/* Navigation Items */}
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="nav-link active relative px-3 py-1 rounded-full text-xs font-medium text-white bg-white/10 hover:bg-white/15 transition-all duration-300 group">
-              <span className="relative z-10">Home</span>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-            <Link to="/about" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">About</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
-            </Link>
-            <Link to="/services" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">Services</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
-            </Link>
-            <Link to="/blog" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">Blog</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
-            </Link>
-            <Link to="/contact" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">Contact</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
-            </Link>
-            <button className="glass-button group relative ml-2 px-4 py-1.5 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 text-white hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300">
-              <span className="relative z-10 flex items-center">
-                Get Started
-                <Terminal className="w-3.5 h-3.5 ml-1.5" />
-              </span>
-            </button>
-          </div>
-        </nav>
+        {/* Routes */}
+        <Routes>
+          <Route path="/" element={<Home scrollY={scrollY} />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
       </div>
 
-      {/* Routes */}
-      <Routes>
-        <Route path="/" element={<Home scrollY={scrollY} />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      {/* Footer */}
+      <footer className="relative z-10 bg-[#050109] border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-20 py-16">
+          <div className="grid grid-cols-3 gap-16">
+            {/* Company Info */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4">Krishlabs</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Founded by experts, Krishlabs excels in delivering innovative software solutions to clients worldwide.
+              </p>
+            </div>
+
+            {/* Company Links */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4">COMPANY</h3>
+              <ul className="space-y-2">
+                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
+                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
+                <li><Link to="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link></li>
+                <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+              </ul>
+            </div>
+
+            {/* Legal Links */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4">LEGAL</h3>
+              <ul className="space-y-2">
+                <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link></li>
+                <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookies Policy</Link></li>
+                <li><Link to="/data-processing" className="text-gray-400 hover:text-white transition-colors">Data Processing</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Social Links & Copyright */}
+          <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
+            <p className="text-gray-400 text-sm">© 2024 KrishLabs. All rights reserved.</p>
+            <div className="flex items-center space-x-4">
+              <a 
+                href="https://www.linkedin.com/company/krishlabs/posts/?feedView=all" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a 
+                href="mailto:hello@krishlabs.in" 
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </Router>
   );
 }
@@ -171,7 +242,7 @@ function Home({ scrollY }: HomeProps) {
             </p>
           <button 
             onClick={scrollToJourney}
-            className="glass-button group relative px-6 py-2.5 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 text-white animate-fade-in animate-delay-400 hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300"
+            className="glass-button group relative px-6 py-2.5 text-sm font-medium rounded-full bg-gradient-to-r from-[#f4921e]/30 to-[#ff5500]/30 backdrop-blur-md border border-white/10 text-white animate-fade-in animate-delay-400 hover:from-[#f4921e]/40 hover:to-[#ff5500]/40 transition-all duration-300"
           >
               <span className="relative z-10 flex items-center">
               Learn More
@@ -255,21 +326,21 @@ function Home({ scrollY }: HomeProps) {
                 </p>
                 
                 <div className="mt-8">
-                  <Link to="/about" className="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 text-white font-medium border border-white/10 backdrop-blur-sm transition-all duration-300 hover:from-purple-500/40 hover:to-pink-500/40 group">
-                      Read More
+                  <Link to="/about" className="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-[#f4921e]/40 to-[#ff5500]/40 text-white font-medium border border-white/10 backdrop-blur-sm transition-all duration-300 hover:from-[#f4921e]/50 hover:to-[#ff5500]/50 group">
+                    Read More
                     <ChevronRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>
             </div>
           </div>
-          </div>
         </div>
+      </div>
 
       {/* Division Line */}
       <div className="relative z-10 flex justify-center px-20 py-16">
         <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
-            </div>
+      </div>
             
       {/* Personalized Consultation Services Section */}
       <div 
@@ -373,12 +444,12 @@ function Home({ scrollY }: HomeProps) {
             </div>
           </div>
         </div>
-            </div>
-            
+      </div>
+
       {/* Final Division Line */}
       <div className="relative z-10 flex justify-center px-20 py-16">
         <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
-            </div>
+      </div>
             
       {/* Our Development Process Section */}
       <div 
@@ -388,11 +459,12 @@ function Home({ scrollY }: HomeProps) {
           transform: scrollY > 1200 ? 'translateY(0)' : 'translateY(40px)',
         }}
       >
-        {/* Green indicator line at top */}
+        {/* Orange indicator line at top */}
         <div 
-          className="absolute top-28 left-20 w-0 h-1.5 bg-green-500 transition-all duration-1000 ease-out"
+          className="absolute top-28 left-20 w-0 h-1.5 transition-all duration-1000 ease-out"
           style={{ 
             width: scrollY > 1200 ? '6rem' : '0',
+            backgroundColor: '#f4921e'
           }}
         ></div>
         
@@ -436,13 +508,13 @@ function Home({ scrollY }: HomeProps) {
               transitionDelay: '0ms'
             }}
           >
-            <span className="text-green-500 text-xl font-medium mb-3">01</span>
+            <span className="text-xl font-medium mb-3" style={{ color: '#f4921e' }}>01</span>
             <h3 className="text-3xl font-bold text-white mb-4">Discovery Phase</h3>
             <p className="text-gray-300">
               We collaborate with you to gather requirements and understand your vision.
             </p>
-            </div>
-            
+          </div>
+          
           {/* Step 2: Design Stage */}
           <div 
             className="flex flex-col opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
@@ -452,13 +524,13 @@ function Home({ scrollY }: HomeProps) {
               transitionDelay: '200ms'
             }}
           >
-            <span className="text-green-500 text-xl font-medium mb-3">02</span>
+            <span className="text-xl font-medium mb-3" style={{ color: '#f4921e' }}>02</span>
             <h3 className="text-3xl font-bold text-white mb-4">Design Stage</h3>
             <p className="text-gray-300">
               Our team designs intuitive interfaces and user experiences tailored to your needs.
             </p>
-            </div>
-            
+          </div>
+          
           {/* Step 3: Development & Testing */}
           <div 
             className="flex flex-col opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
@@ -468,46 +540,142 @@ function Home({ scrollY }: HomeProps) {
               transitionDelay: '400ms'
             }}
           >
-            <span className="text-green-500 text-xl font-medium mb-3">03</span>
+            <span className="text-xl font-medium mb-3" style={{ color: '#f4921e' }}>03</span>
             <h3 className="text-3xl font-bold text-white mb-4">Development & Testing</h3>
             <p className="text-gray-300">
               We develop the solution while integrating thorough testing to ensure quality.
             </p>
           </div>
         </div>
-            </div>
-            
+      </div>
+
       {/* Final Division Line */}
       <div className="relative z-10 flex justify-center px-20 py-16">
         <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+      </div>
+            
+      {/* What Clients Say Section */}
+      <div 
+        className="relative min-h-screen flex flex-col items-start justify-center px-20 py-24 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        style={{ 
+          opacity: scrollY > 1600 ? 1 : 0, 
+          transform: scrollY > 1600 ? 'translateY(0)' : 'translateY(40px)',
+        }}
+      >
+        {/* Orange indicator line at top */}
+        <div 
+          className="w-0 h-1.5 mb-8 transition-all duration-1000 ease-out"
+          style={{ 
+            width: scrollY > 1600 ? '6rem' : '0',
+            backgroundColor: '#f4921e'
+          }}
+        ></div>
+
+        <h2 className="text-5xl font-bold text-white mb-4">
+          What Clients Say
+        </h2>
+        
+        <p className="text-lg text-gray-400 mb-16">
+          Hear from our satisfied customers.
+        </p>
+
+        {/* Testimonials Grid */}
+        <div className="w-full grid grid-cols-2 gap-8">
+          {/* Testimonial 1 */}
+          <div 
+            className="opacity-0 transform -translate-x-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1650 ? 1 : 0, 
+              transform: scrollY > 1650 ? 'translateX(0)' : 'translateX(-40px)',
+            }}
+          >
+            <div className="relative">
+              <div className="bg-black/20 backdrop-blur-sm border border-white/10 p-8 rounded-2xl">
+                <div className="relative mb-6">
+                  <Quote 
+                    className="w-6 h-6 absolute -left-1 -top-2 text-[#f4921e]/30 rotate-180"
+                  />
+                  <p className="text-gray-300 text-lg leading-relaxed pl-6">
+                    Krishlabs transformed our vision into reality with their exceptional services. Their professionalism and expertise are unmatched in the industry.
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#f4921e]/20 flex items-center justify-center bg-black/30">
+                    <User className="w-6 h-6 text-[#f4921e]" />
+                  </div>
+                  <span className="text-white font-medium ml-4">Saleem</span>
+                </div>
+              </div>
+              </div>
             </div>
+            
+          {/* Testimonial 2 */}
+          <div 
+            className="opacity-0 transform translate-x-10 transition-all duration-700 ease-out delay-200"
+            style={{ 
+              opacity: scrollY > 1650 ? 1 : 0, 
+              transform: scrollY > 1650 ? 'translateX(0)' : 'translateX(40px)',
+            }}
+          >
+            <div className="relative">
+              <div className="bg-black/20 backdrop-blur-sm border border-white/10 p-8 rounded-2xl">
+                <div className="relative mb-6">
+                  <Quote 
+                    className="w-6 h-6 absolute -left-1 -top-2 text-[#f4921e]/30 rotate-180"
+                  />
+                  <p className="text-gray-300 text-lg leading-relaxed pl-6">
+                    Working with Krishlabs has been a game-changer for our business. Their dedication to quality and service is truly commendable.
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#f4921e]/20 flex items-center justify-center bg-black/30">
+                    <User className="w-6 h-6 text-[#f4921e]" />
+                  </div>
+                  <span className="text-white font-medium ml-4">Rakesh reddy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
             
       {/* Help You Achieve Your Goals Section */}
       <div 
-        className="relative min-h-[40vh] flex items-center justify-center px-20 py-24 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        className="relative min-h-[30vh] flex items-center px-20 py-12 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
         style={{ 
           opacity: scrollY > 1800 ? 1 : 0, 
           transform: scrollY > 1800 ? 'translateY(0)' : 'translateY(40px)',
         }}
       >
         <div 
-          className="w-full max-w-4xl mx-auto p-12 rounded-2xl backdrop-blur-sm bg-black/20 border border-white/10 transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.1)] text-center"
+          className="w-full p-8 rounded-2xl backdrop-blur-sm bg-black/40 border border-white/10 transition-all duration-300 hover:shadow-[0_0_25px_rgba(244,146,30,0.1)]"
         >
-          <h2 className="text-5xl font-bold mb-12 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-            Let Us Help You Achieve Your Goals
-          </h2>
-          
-          <button className="w-full max-w-xl mx-auto block bg-gradient-to-r from-purple-500/40 to-pink-500/40 hover:from-purple-500/60 hover:to-pink-500/60 text-white font-bold py-5 px-12 rounded-md text-lg mb-10 transition-all duration-300 shadow-lg shadow-purple-900/30 hover:shadow-purple-500/30 backdrop-blur-sm border border-white/10">
-            GET STARTED
-          </button>
-          
-          <div className="text-white text-xl font-medium my-10">OR</div>
-          
-          <div className="text-white text-2xl font-bold">
-            <span>Call: </span>
-            <a href="tel:+919550083889" className="ml-2 text-purple-400 hover:text-purple-300 transition-colors duration-300">
-              +91 95500 83889
-            </a>
+          <div className="flex justify-between items-center">
+            {/* Left side - Content and Buttons */}
+            <div className="w-1/2">
+              <h2 className="text-4xl font-bold mb-3 text-white">
+                Take the First Step
+              </h2>
+              
+              <p className="text-gray-300 text-base mb-6 max-w-xl">
+                Your discovery consultation should leave you, not the other way around. We're happy to help you.
+              </p>
+
+              <button className="w-40 bg-gradient-to-r from-[#f4921e] via-[#ff7a00] to-[#ff5500] hover:from-[#f4921e]/90 hover:via-[#ff7a00]/90 hover:to-[#ff5500]/90 text-white font-medium py-2 px-5 rounded-full text-sm transition-all duration-300 shadow-lg shadow-[#f4921e]/20 hover:shadow-[#f4921e]/30">
+                Book a Call
+              </button>
+            </div>
+
+            {/* Right side - Illustration */}
+            <div className="w-1/2 flex justify-center items-center">
+              <div className="relative w-full max-w-sm overflow-hidden rounded-xl">
+                <img 
+                  src="/cta.png" 
+                  alt="CTA Illustration" 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -515,17 +683,6 @@ function Home({ scrollY }: HomeProps) {
       {/* Final Division Line */}
       <div className="relative z-10 flex justify-center px-20 py-16">
         <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
-      </div>
-
-      {/* Footer area - darkest part */}
-      <div 
-        className="relative z-10 py-10 text-center text-gray-500 text-sm"
-        style={{
-          background: `rgba(5, 1, 9, ${0.5 + darknessFactor * 0.5})`,
-          borderTop: '1px solid rgba(168, 85, 247, 0.1)'
-        }}
-      >
-        <p>© 2023 KrishLabs. All rights reserved.</p>
       </div>
     </div>
   );
