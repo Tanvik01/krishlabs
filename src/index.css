@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #050109;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @keyframes noise {
   0%, 100% { transform: translate(0, 0); }
   10% { transform: translate(-5%, -5%); }
@@ -740,4 +755,85 @@
   opacity: 1;
   transform: none;
   visibility: visible;
+}
+
+/* Animation keyframes */
+@keyframes path-1 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes path-2 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-15px, 5px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes path-3 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(5px, 15px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes path-4 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-10px, -5px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Utility classes */
+.floating-element {
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
+}
+
+.path-1 { animation: path-1 20s ease-in-out infinite; }
+.path-2 { animation: path-2 25s ease-in-out infinite; }
+.path-3 { animation: path-3 30s ease-in-out infinite; }
+.path-4 { animation: path-4 35s ease-in-out infinite; }
+
+/* Gradient blobs */
+.gradient-blob-1 {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle at center, rgba(147, 51, 234, 0.15) 0%, rgba(147, 51, 234, 0) 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  top: -200px;
+  left: -200px;
+}
+
+.gradient-blob-2 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, rgba(236, 72, 153, 0.15) 0%, rgba(236, 72, 153, 0) 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  top: 40%;
+  right: -100px;
+}
+
+.gradient-blob-3 {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  bottom: -200px;
+  left: 30%;
+}
+
+/* Code snippets */
+.code-snippet {
+  position: absolute;
+  font-family: 'Fira Code', monospace;
+  white-space: pre;
+  pointer-events: none;
 }

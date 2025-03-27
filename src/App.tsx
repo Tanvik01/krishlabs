@@ -1,13 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Menu, X, Code2, Terminal, Database, Globe, Cpu, Cloud,
   Binary, Blocks, Brain, Rocket, Server, Wifi, Network, Laptop,
   CircuitBoard, Microscope, Atom, Lightbulb, GitBranch, Code, Coffee, Sparkles,
-  Monitor, Headphones, PenTool
+  Monitor, Headphones, PenTool, LucideIcon, ChevronRight
 } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import About from './pages/About';
 
-function TechDoodle({ className, children }: { className: string; children: React.ReactNode }) {
+interface TechDoodleProps {
+  className: string;
+  children: React.ReactNode;
+}
+
+interface FloatingElementProps {
+  icon: LucideIcon;
+  className: string;
+  text?: string;
+  delay?: number;
+}
+
+interface HomeProps {
+  scrollY: number;
+}
+
+function TechDoodle({ className, children }: TechDoodleProps) {
   return (
     <div className={`doodle-container absolute ${className}`}>
       <div className="doodle-character">
@@ -17,7 +33,7 @@ function TechDoodle({ className, children }: { className: string; children: Reac
   );
 }
 
-const FloatingElement = ({ icon: Icon, className, text, delay = 0 }) => (
+const FloatingElement = ({ icon: Icon, className, text, delay = 0 }: FloatingElementProps) => (
   <div className={`floating-element ${className}`} style={{ animationDelay: `${delay}s` }}>
     <Icon className="floating-icon" />
     {text && <span className="element-text">{text}</span>}
@@ -39,13 +55,13 @@ function App() {
   return (
     <Router>
       {/* Navigation bar */}
-      <div className="fixed top-0 left-0 right-0 flex items-center justify-between z-50 px-8 py-1">
+      <div className="fixed top-0 left-0 right-0 flex items-center justify-between z-50 px-8 py-3 bg-[#050109]/70 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div className="animate-fade-in animate-delay-100">
           <Link to="/">
             <img 
               src="/krishlabs-logo.png" 
               alt="KrishLabs" 
-              className="h-16 w-auto"
+              className="h-12 w-auto"
             />
           </Link>
         </div>
@@ -59,24 +75,26 @@ function App() {
             </Link>
             <Link to="/about" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
               <span className="relative z-10">About</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
             </Link>
             <Link to="/services" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
               <span className="relative z-10">Services</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
             </Link>
             <Link to="/blog" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
               <span className="relative z-10">Blog</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
             </Link>
             <Link to="/contact" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
               <span className="relative z-10">Contact</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
+              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-gradient-to-r group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
             </Link>
-            <Link to="/career" className="nav-link relative px-4 py-1 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 group">
-              <span className="relative z-10">Career</span>
-              <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
-            </Link>
+            <button className="glass-button group relative ml-2 px-4 py-1.5 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 text-white hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300">
+              <span className="relative z-10 flex items-center">
+                Get Started
+                <Terminal className="w-3.5 h-3.5 ml-1.5" />
+              </span>
+            </button>
           </div>
         </nav>
       </div>
@@ -91,235 +109,423 @@ function App() {
 }
 
 // Create a new Home component for the main page content
-function Home({ scrollY }: { scrollY: number }) {
+function Home({ scrollY }: HomeProps) {
+  const journeySectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToJourney = (e: React.MouseEvent) => {
+    e.preventDefault();
+    journeySectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Calculate gradient darkness based on scroll position
+  const darknessFactor = Math.min(scrollY / 1500, 1); // Max darkness at 1500px scroll
+  const darknessValue = Math.floor(darknessFactor * 30); // Up to 30% darker
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#050109]">
-      {/* Gradient overlay */}
-      <div className="fixed inset-0 bg-gradient-to-t from-[#ff2994]/10 via-[#070212] to-transparent"></div>
+      {/* Gradient overlay that darkens with scroll */}
+      <div 
+        className="fixed inset-0 transition-colors duration-300"
+        style={{ 
+          background: `linear-gradient(to bottom, 
+            rgba(255, 41, 148, ${0.10 - darknessFactor * 0.05}) 0%, 
+            rgba(7, 2, 18, ${0.7 + darknessFactor * 0.3}) 50%, 
+            rgba(5, 1, 9, ${0.8 + darknessFactor * 0.2}) 100%)` 
+        }}
+      ></div>
       
-      {/* Gradient waves */}
+      {/* Gradient waves with adjusted opacity based on scroll */}
       <div className="fixed inset-0">
         <div 
           className="gradient-blob-1" 
           style={{ 
             transform: `translate(${scrollY * 0.05}px, ${scrollY * -0.03}px) rotate(${scrollY * 0.02}deg)`,
+            opacity: Math.max(0.3 - darknessFactor * 0.2, 0.1), // Reduce opacity as we scroll
           }}
         ></div>
         <div 
           className="gradient-blob-2" 
           style={{ 
             transform: `translate(${scrollY * -0.05}px, ${scrollY * 0.03}px) rotate(${scrollY * -0.02}deg)`,
+            opacity: Math.max(0.3 - darknessFactor * 0.2, 0.1), // Reduce opacity as we scroll
           }}
         ></div>
         <div 
           className="gradient-blob-3" 
           style={{ 
             transform: `translate(${scrollY * 0.03}px, ${scrollY * 0.05}px) rotate(${scrollY * 0.01}deg)`,
+            opacity: Math.max(0.3 - darknessFactor * 0.2, 0.1), // Reduce opacity as we scroll
           }}
         ></div>
       </div>
 
-      {/* Background Layer Elements (Below Text) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Far Background Elements */}
-        <FloatingElement 
-          icon={CircuitBoard} 
-          className="top-[75%] left-[8%] w-12 h-12 text-purple-400/20 path-3"
-          delay={2}
-        />
-        <FloatingElement 
-          icon={Binary} 
-          className="bottom-[15%] right-[12%] w-10 h-10 text-blue-400/20 path-2"
-          delay={1.5}
-        />
-        <FloatingElement 
-          icon={Cpu} 
-          className="top-[80%] right-[15%] w-11 h-11 text-green-400/20 path-1"
-          delay={3}
-        />
-        <FloatingElement 
-          icon={Code} 
-          className="bottom-[85%] left-[18%] w-10 h-10 text-pink-400/20 path-4"
-          delay={2.5}
-        />
-        <pre className="code-snippet bottom-[20%] left-[10%] rotate-[-5deg] opacity-10 path-1">
-          <code className="text-xs text-purple-400">
-            {`function init() {
-  return future;
-}`}
-          </code>
-        </pre>
-        <pre className="code-snippet top-[15%] right-[8%] rotate-[8deg] opacity-10 path-2">
-          <code className="text-xs text-blue-400/30">
-            {`class Future {
-  build() {
-    return dreams;
-  }
-}`}
-          </code>
-        </pre>
-        <div className="tech-term absolute bottom-[30%] right-[25%] text-sm text-blue-400/20 rotate-[8deg]">
-          Innovation
-        </div>
-        <div className="tech-term absolute top-[12%] left-[22%] text-sm text-purple-400/20 rotate-[-5deg]">
-          Blockchain
-        </div>
-        <div className="tech-term absolute bottom-[10%] left-[35%] text-sm text-green-400/20 rotate-[3deg]">
-          Cloud Native
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="relative z-10 flex min-h-screen items-center justify-center p-8">
-        {/* Side Elements (Around Text) */}
-        <FloatingElement 
-          icon={Database} 
-          className="absolute -left-20 top-1/2 w-7 h-7 text-cyan-400 path-2"
-          delay={1}
-        />
-        <FloatingElement 
-          icon={Globe} 
-          className="absolute -right-16 top-1/3 w-7 h-7 text-blue-400 path-1"
-          text="Cloud Native"
-          delay={0.5}
-        />
-
-        {/* Main Content Text */}
-        <div className="text-center">
-          <h1 className="text-5xl font-medium text-white text-center max-w-3xl leading-tight mb-8 tracking-wider animate-fade-in animate-delay-200 gradient-text">
-            Transform the way you work.
-          </h1>
-          <p className="text-lg text-gray-400 mb-8 max-w-xl mx-auto animate-fade-in animate-delay-300">
-            Innovative software solutions for modern businesses. Build the future with our cutting-edge technology.
-          </p>
-          <button className="glass-button group relative px-6 py-2.5 text-sm font-medium rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white animate-fade-in animate-delay-400">
-            <span className="relative z-10 flex items-center">
-              Get Started
-              <Terminal className="w-4 h-4 ml-2" />
-            </span>
-          </button>
+      <div className="relative z-10 flex min-h-screen items-center justify-between p-8 pt-24 px-20">
+        {/* Main Content Text - Left side */}
+        <div className="text-left max-w-xl">
+          <h1 className="text-5xl font-medium text-white leading-tight mb-8 tracking-wider animate-fade-in animate-delay-200 gradient-text">
+              Transform the way you work.
+            </h1>
+            <p className="text-lg text-gray-400 mb-8 animate-fade-in animate-delay-300">
+              Innovative software solutions for modern businesses. Build the future with our cutting-edge technology.
+            </p>
+          <button 
+            onClick={scrollToJourney}
+            className="glass-button group relative px-6 py-2.5 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 text-white animate-fade-in animate-delay-400 hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300"
+          >
+              <span className="relative z-10 flex items-center">
+              Learn More
+              <ChevronDown className="w-4 h-4 ml-2 transition-transform group-hover:translate-y-1" />
+              </span>
+            </button>
+        </div>
+        
+        {/* Illustration - Right side */}
+        <div className="w-1/2 flex justify-center items-center animate-fade-in animate-delay-500">
+          <div className="relative w-full max-w-md overflow-hidden rounded-lg">
+            <img 
+              src="/illustration.png" 
+              alt="Digital Illustration" 
+              className="w-full h-auto object-contain shadow-2xl transform hover:scale-[1.02] transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-pink-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </div>
         </div>
       </div>
 
-      {/* Foreground Layer Elements (Above Text) */}
-      <div className="absolute inset-0 z-20 overflow-hidden pointer-events-none">
-        <FloatingElement 
-          icon={Brain} 
-          className="top-[20%] right-[25%] w-8 h-8 text-pink-400/70 path-4"
-          text="AI & ML"
-          delay={0.8}
-        />
-        <FloatingElement 
-          icon={Rocket} 
-          className="top-[30%] left-[20%] w-7 h-7 text-orange-400/70 path-1"
-          delay={1.2}
-        />
-        <pre className="code-snippet top-[25%] right-[10%] rotate-[3deg] opacity-30 path-2">
-          <code className="text-xs text-cyan-400">
-            {`const tech = {
-  innovation: true
-}`}
-          </code>
-        </pre>
-        <div className="tech-term absolute top-[35%] left-[28%] text-xs text-pink-400/40 rotate-[-5deg]">
-          Machine Learning
-        </div>
+      {/* Added spacing for better separation */}
+      <div className="h-32"></div>
 
-        {/* Add far corner elements */}
-        <FloatingElement 
-          icon={GitBranch} 
-          className="top-[8%] left-[15%] w-6 h-6 text-indigo-400/50 path-3"
-          delay={1.8}
-        />
-        <FloatingElement 
-          icon={Server} 
-          className="bottom-[12%] right-[6%] w-6 h-6 text-cyan-400/50 path-2"
-          delay={2.2}
-        />
-        <FloatingElement 
-          icon={Network} 
-          className="top-[10%] right-[8%] w-6 h-6 text-orange-400/50 path-1"
-          delay={1.6}
-        />
+      {/* Dividing Line */}
+      <div className="relative z-10 flex justify-center px-20 py-8">
+        <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
       </div>
-
-      {/* Add some subtle elements around the text area */}
-      <FloatingElement 
-        icon={Cpu} 
-        className="top-[45%] left-[12%] w-7 h-7 text-purple-400/30 path-2"
-        delay={2}
-      />
-
-      <FloatingElement 
-        icon={Binary} 
-        className="top-[40%] right-[12%] w-7 h-7 text-blue-400/30 path-1"
-        delay={1.5}
-      />
-
-      {/* Add subtle code snippets near (but not too close to) the text */}
-      <pre className="code-snippet top-[40%] left-[8%] rotate-[-5deg] opacity-15 path-1">
-        <code className="text-xs text-purple-400">
-          {`const dream = true;`}
-        </code>
-      </pre>
-
-      <pre className="code-snippet top-[45%] right-[8%] rotate-[5deg] opacity-15 path-2">
-        <code className="text-xs text-cyan-400">
-          {`build.future();`}
-        </code>
-      </pre>
 
       {/* Journey Section */}
-      <div className="relative min-h-screen flex items-center justify-end px-8">
+      <div 
+        ref={journeySectionRef} 
+        id="journey-section" 
+        className="relative min-h-screen flex flex-col items-center justify-center px-20 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        style={{ 
+          opacity: scrollY > 300 ? 1 : 0, 
+          transform: scrollY > 300 ? 'translateY(0)' : 'translateY(40px)',
+        }}
+      >
+        <h2 className="text-4xl font-bold mb-12 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent text-center">
+          Our Journey and Vision
+        </h2>
+        
         <div 
-          className="w-1/2 p-8 rounded-2xl backdrop-blur-sm bg-gradient-to-br from-white/5 to-white/10 
-          border border-white/10 transform hover:scale-[1.02] transition-all duration-500 group"
+          className="w-11/12 p-6 rounded-2xl backdrop-blur-sm bg-black/20 
+          border border-white/10 transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.1)]"
         >
-          {/* Floating elements specific to this section */}
-          <div className="absolute -left-4 -top-4 w-20 h-20 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all duration-500"></div>
-          <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-pink-500/10 rounded-full blur-xl group-hover:bg-pink-500/20 transition-all duration-500"></div>
-          
-          {/* Content */}
-          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-            Our Journey and Vision
-          </h2>
-          
-          <div className="space-y-6">
-            <p className="text-gray-300 leading-relaxed relative group-hover:transform group-hover:translate-x-2 transition-all duration-500">
-              <span className="absolute -left-4 top-1/2 w-2 h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
-              At Krishlabs, we are dedicated to delivering exceptional software development services. Our expertise spans various technologies and industries, making us a reliable partner for businesses.
-            </p>
-            
-            <p className="text-gray-300 leading-relaxed relative group-hover:transform group-hover:translate-x-2 transition-all duration-700">
-              <span className="absolute -left-4 top-1/2 w-2 h-2 bg-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
-              Krishlabs was founded with a vision to revolutionize the software development landscape. Our journey began with a group of passionate developers seeking to create impactful solutions.
-            </p>
-          </div>
+          <div className="flex flex-row items-center">
+            {/* Left side - Working from home image */}
+            <div 
+              className="w-1/2 flex justify-center items-center pr-12 opacity-0 transform -translate-x-10 transition-all duration-700 ease-out"
+              style={{ 
+                opacity: scrollY > 400 ? 1 : 0, 
+                transform: scrollY > 400 ? 'translateX(0)' : 'translateX(-40px)',
+              }}
+            >
+              <div className="relative w-full max-w-lg overflow-hidden rounded-xl">
+                <img 
+                  src="/working-from-home.png" 
+                  alt="Working From Home" 
+                  className="w-full h-auto object-cover shadow-xl"
+                />
+              </div>
+            </div>
 
-          {/* Interactive elements */}
-          <div className="absolute -right-20 top-1/2 transform -translate-y-1/2">
-            <div className="relative">
-              <FloatingElement 
-                icon={Brain} 
-                className="w-8 h-8 text-purple-400/70 group-hover:text-purple-400 transition-all duration-500"
-                delay={0.2}
-              />
+            {/* Right side - Content */}
+            <div 
+              className="w-1/2 pl-12 opacity-0 transform translate-x-10 transition-all duration-700 ease-out delay-200"
+              style={{ 
+                opacity: scrollY > 400 ? 1 : 0, 
+                transform: scrollY > 400 ? 'translateX(0)' : 'translateX(40px)',
+              }}
+            >
+              <div className="space-y-6">
+                <p className="text-gray-300 leading-relaxed">
+                  At Krishlabs, we are dedicated to delivering exceptional software development services. Our expertise spans various technologies and industries, making us a reliable partner for businesses.
+                </p>
+                
+                <p className="text-gray-300 leading-relaxed">
+                  Krishlabs was founded with a vision to revolutionize the software development landscape. Our journey began with a group of passionate developers seeking to create impactful solutions.
+                </p>
+                
+                <div className="mt-8">
+                  <Link to="/about" className="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 text-white font-medium border border-white/10 backdrop-blur-sm transition-all duration-300 hover:from-purple-500/40 hover:to-pink-500/40 group">
+                      Read More
+                    <ChevronRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Decorative code snippet */}
-          <pre className="absolute -left-40 top-1/2 transform -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-500">
-            <code className="text-xs text-purple-400">
-              {`function journey() {
-  return {
-    passion,
-    innovation,
-    excellence
-  }
-}`}
-            </code>
-          </pre>
+          </div>
         </div>
+
+      {/* Division Line */}
+      <div className="relative z-10 flex justify-center px-20 py-16">
+        <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+            </div>
+            
+      {/* Personalized Consultation Services Section */}
+      <div 
+        className="relative min-h-screen flex flex-col items-center justify-center px-20 py-24 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        style={{ 
+          opacity: scrollY > 800 ? 1 : 0, 
+          transform: scrollY > 800 ? 'translateY(0)' : 'translateY(40px)',
+        }}
+      >
+        <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent text-center">
+          Personalized Consultation Services
+        </h2>
+        
+        <div 
+          className="w-11/12 p-8 rounded-2xl backdrop-blur-sm bg-black/20 
+          border border-white/10 transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.1)]"
+        >
+          <div className="flex flex-row items-center">
+            {/* Left side - Content */}
+            <div 
+              className="w-1/2 pr-12 opacity-0 transform -translate-x-10 transition-all duration-700 ease-out"
+              style={{ 
+                opacity: scrollY > 900 ? 1 : 0, 
+                transform: scrollY > 900 ? 'translateX(0)' : 'translateX(-40px)',
+              }}
+            >
+              <div className="space-y-0">
+                <div className="py-6">
+                  <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                    <Brain className="w-5 h-5 mr-2 text-purple-400" />
+                    Business Analysis
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed pl-7">
+                    In-depth analysis to understand your unique business requirements.
+                  </p>
+                </div>
+                
+                {/* Dividing line between services */}
+                <div className="flex justify-center py-1">
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
+                  </div>
+                  
+                <div className="py-6">
+                  <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                    <Blocks className="w-5 h-5 mr-2 text-purple-400" />
+                    Technical Architecture
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed pl-7">
+                    Creating robust architectures to ensure scalable and efficient solutions.
+                  </p>
+                </div>
+                
+                {/* Dividing line between services */}
+                <div className="flex justify-center py-1">
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
+                      </div>
+                      
+                <div className="py-6">
+                  <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                    <GitBranch className="w-5 h-5 mr-2 text-purple-400" />
+                    Project Management
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed pl-7">
+                    Expert project management to keep your projects on track and within budget.
+                  </p>
+                      </div>
+                      
+                {/* Dividing line between services */}
+                <div className="flex justify-center py-1">
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
+                      </div>
+                      
+                <div className="py-6">
+                  <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
+                    <Microscope className="w-5 h-5 mr-2 text-purple-400" />
+                    Quality Assurance
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed pl-7">
+                    Comprehensive testing services to ensure high-quality deliverables.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right side - Consultation image */}
+            <div 
+              className="w-1/2 flex justify-center items-center pl-12 opacity-0 transform translate-x-10 transition-all duration-700 ease-out delay-200"
+              style={{ 
+                opacity: scrollY > 900 ? 1 : 0, 
+                transform: scrollY > 900 ? 'translateX(0)' : 'translateX(40px)',
+              }}
+            >
+              <div className="relative w-full max-w-lg overflow-hidden rounded-xl">
+                <img 
+                  src="/consultation.png" 
+                  alt="Consultation Services" 
+                  className="w-full h-auto object-cover shadow-xl transform hover:scale-[1.03] transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+            
+      {/* Final Division Line */}
+      <div className="relative z-10 flex justify-center px-20 py-16">
+        <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+            </div>
+            
+      {/* Our Development Process Section */}
+      <div 
+        className="relative min-h-screen flex flex-col items-center justify-center px-20 py-24 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        style={{ 
+          opacity: scrollY > 1200 ? 1 : 0, 
+          transform: scrollY > 1200 ? 'translateY(0)' : 'translateY(40px)',
+        }}
+      >
+        {/* Green indicator line at top */}
+        <div 
+          className="absolute top-28 left-20 w-0 h-1.5 bg-green-500 transition-all duration-1000 ease-out"
+          style={{ 
+            width: scrollY > 1200 ? '6rem' : '0',
+          }}
+        ></div>
+        
+        <div className="w-full mb-8 flex justify-between items-start">
+          <h2 
+            className="text-5xl font-bold text-white opacity-0 transform -translate-x-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1250 ? 1 : 0, 
+              transform: scrollY > 1250 ? 'translateX(0)' : 'translateX(-40px)',
+            }}
+          >
+            Our Development Process
+          </h2>
+          <p 
+            className="text-lg text-gray-300 max-w-md opacity-0 transform translate-x-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1250 ? 1 : 0, 
+              transform: scrollY > 1250 ? 'translateX(0)' : 'translateX(40px)',
+            }}
+          >
+            Learn about our structured approach to delivering exceptional software solutions.
+          </p>
+        </div>
+
+        {/* Dividing Line */}
+        <div 
+          className="w-full h-px bg-white/10 mb-16 mt-4 transform scaleX-0 transition-all duration-1000 ease-out"
+          style={{ 
+            transform: scrollY > 1300 ? 'scaleX(1)' : 'scaleX(0)',
+          }}
+        ></div>
+        
+        {/* Three-column Process Steps */}
+        <div className="w-full grid grid-cols-3 gap-8">
+          {/* Step 1: Discovery Phase */}
+          <div 
+            className="flex flex-col opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1350 ? 1 : 0, 
+              transform: scrollY > 1350 ? 'translateY(0)' : 'translateY(40px)',
+              transitionDelay: '0ms'
+            }}
+          >
+            <span className="text-green-500 text-xl font-medium mb-3">01</span>
+            <h3 className="text-3xl font-bold text-white mb-4">Discovery Phase</h3>
+            <p className="text-gray-300">
+              We collaborate with you to gather requirements and understand your vision.
+            </p>
+            </div>
+            
+          {/* Step 2: Design Stage */}
+          <div 
+            className="flex flex-col opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1350 ? 1 : 0, 
+              transform: scrollY > 1350 ? 'translateY(0)' : 'translateY(40px)',
+              transitionDelay: '200ms'
+            }}
+          >
+            <span className="text-green-500 text-xl font-medium mb-3">02</span>
+            <h3 className="text-3xl font-bold text-white mb-4">Design Stage</h3>
+            <p className="text-gray-300">
+              Our team designs intuitive interfaces and user experiences tailored to your needs.
+            </p>
+            </div>
+            
+          {/* Step 3: Development & Testing */}
+          <div 
+            className="flex flex-col opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+            style={{ 
+              opacity: scrollY > 1350 ? 1 : 0, 
+              transform: scrollY > 1350 ? 'translateY(0)' : 'translateY(40px)',
+              transitionDelay: '400ms'
+            }}
+          >
+            <span className="text-green-500 text-xl font-medium mb-3">03</span>
+            <h3 className="text-3xl font-bold text-white mb-4">Development & Testing</h3>
+            <p className="text-gray-300">
+              We develop the solution while integrating thorough testing to ensure quality.
+            </p>
+          </div>
+        </div>
+            </div>
+            
+      {/* Final Division Line */}
+      <div className="relative z-10 flex justify-center px-20 py-16">
+        <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+            </div>
+            
+      {/* Help You Achieve Your Goals Section */}
+      <div 
+        className="relative min-h-[40vh] flex items-center justify-center px-20 py-24 opacity-0 transform translate-y-10 transition-all duration-700 ease-out"
+        style={{ 
+          opacity: scrollY > 1800 ? 1 : 0, 
+          transform: scrollY > 1800 ? 'translateY(0)' : 'translateY(40px)',
+        }}
+      >
+        <div 
+          className="w-full max-w-4xl mx-auto p-12 rounded-2xl backdrop-blur-sm bg-black/20 border border-white/10 transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.1)] text-center"
+        >
+          <h2 className="text-5xl font-bold mb-12 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+            Let Us Help You Achieve Your Goals
+          </h2>
+          
+          <button className="w-full max-w-xl mx-auto block bg-gradient-to-r from-purple-500/40 to-pink-500/40 hover:from-purple-500/60 hover:to-pink-500/60 text-white font-bold py-5 px-12 rounded-md text-lg mb-10 transition-all duration-300 shadow-lg shadow-purple-900/30 hover:shadow-purple-500/30 backdrop-blur-sm border border-white/10">
+            GET STARTED
+          </button>
+          
+          <div className="text-white text-xl font-medium my-10">OR</div>
+          
+          <div className="text-white text-2xl font-bold">
+            <span>Call: </span>
+            <a href="tel:+919550083889" className="ml-2 text-purple-400 hover:text-purple-300 transition-colors duration-300">
+              +91 95500 83889
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Final Division Line */}
+      <div className="relative z-10 flex justify-center px-20 py-16">
+        <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+      </div>
+
+      {/* Footer area - darkest part */}
+      <div 
+        className="relative z-10 py-10 text-center text-gray-500 text-sm"
+        style={{
+          background: `rgba(5, 1, 9, ${0.5 + darknessFactor * 0.5})`,
+          borderTop: '1px solid rgba(168, 85, 247, 0.1)'
+        }}
+      >
+        <p>© 2023 KrishLabs. All rights reserved.</p>
       </div>
     </div>
   );
