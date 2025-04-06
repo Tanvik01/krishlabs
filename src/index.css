@@ -595,7 +595,7 @@
 
 /* Stagger animations */
 .character-3d:nth-child(1) .character-content {
-  animation-delay: 0s;
+  animation-delay: 0s
 }
 
 .character-3d:nth-child(2) .character-content {

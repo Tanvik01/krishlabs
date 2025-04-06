@@ -1,0 +1,76 @@
+/* Basic styling for all sections */
+.landing-section img,
+.journey-section img, 
+.consultation-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Clear any floating elements */
+.landing-section,
+.journey-section,
+.consultation-section {
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+/* Hero section specific styles */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0;
+}
+
+.hero-text {
+  flex: 1;
+  padding-right: 2rem;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Specific image placements - target images directly */
+/* Landing section illustration - look for any image in this section */
+.landing-section img {
+  float: right;
+  max-width: 45%;
+  margin-left: 30px;
+}
+
+/* Journey section - look for about.png or working-from-home.png */
+.journey-section img {
+  float: left;
+  max-width: 45%;
+  margin-right: 30px;
+}
+
+/* Consultation section - any image in this section */
+.consultation-section img {
+  float: right;
+  max-width: 45%;
+  margin-left: 30px;
+}
+
+/* Force images to be displayed with !important */
+img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 767px) {
+  img:not(.keep-visible) {
+    display: none !important;
+  }
+} 

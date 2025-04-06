@@ -1,0 +1,335 @@
+/* Responsive Utilities CSS */
+
+/* Custom breakpoints that match TailwindCSS defaults */
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Hide on specific breakpoints */
+.hide-on-mobile {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+.hide-on-tablet {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    display: none !important;
+  }
+}
+
+.hide-on-desktop {
+  @media (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}
+
+.tablet-only {
+  @media (max-width: 767px), (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.desktop-only {
+  @media (max-width: 1023px) {
+    display: none !important;
+  }
+}
+
+/* Text sizing for responsive typography */
+.responsive-text-xl {
+  font-size: 1.25rem; /* 20px on mobile */
+  line-height: 1.75rem;
+  
+  @media (min-width: 768px) {
+    font-size: 1.5rem; /* 24px on tablet */
+    line-height: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 1.875rem; /* 30px on desktop */
+    line-height: 2.25rem;
+  }
+}
+
+.responsive-text-2xl {
+  font-size: 1.5rem; /* 24px on mobile */
+  line-height: 2rem;
+  
+  @media (min-width: 768px) {
+    font-size: 1.875rem; /* 30px on tablet */
+    line-height: 2.25rem;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 2.25rem; /* 36px on desktop */
+    line-height: 2.5rem;
+  }
+}
+
+.responsive-text-3xl {
+  font-size: 1.875rem; /* 30px on mobile */
+  line-height: 2.25rem;
+  
+  @media (min-width: 768px) {
+    font-size: 2.25rem; /* 36px on tablet */
+    line-height: 2.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 3rem; /* 48px on desktop */
+    line-height: 1;
+  }
+}
+
+/* Responsive paddings */
+.responsive-padding {
+  padding: 1rem; /* 16px on mobile */
+  
+  @media (min-width: 768px) {
+    padding: 1.5rem; /* 24px on tablet */
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 2rem; /* 32px on desktop */
+  }
+}
+
+.responsive-padding-x {
+  padding-left: 1rem; /* 16px on mobile */
+  padding-right: 1rem;
+  
+  @media (min-width: 768px) {
+    padding-left: 1.5rem; /* 24px on tablet */
+    padding-right: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding-left: 2rem; /* 32px on desktop */
+    padding-right: 2rem;
+  }
+}
+
+.responsive-padding-y {
+  padding-top: 1rem; /* 16px on mobile */
+  padding-bottom: 1rem;
+  
+  @media (min-width: 768px) {
+    padding-top: 1.5rem; /* 24px on tablet */
+    padding-bottom: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding-top: 2rem; /* 32px on desktop */
+    padding-bottom: 2rem;
+  }
+}
+
+/* Responsive margins */
+.responsive-margin {
+  margin: 1rem; /* 16px on mobile */
+  
+  @media (min-width: 768px) {
+    margin: 1.5rem; /* 24px on tablet */
+  }
+  
+  @media (min-width: 1024px) {
+    margin: 2rem; /* 32px on desktop */
+  }
+}
+
+.responsive-margin-x {
+  margin-left: 1rem; /* 16px on mobile */
+  margin-right: 1rem;
+  
+  @media (min-width: 768px) {
+    margin-left: 1.5rem; /* 24px on tablet */
+    margin-right: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    margin-left: 2rem; /* 32px on desktop */
+    margin-right: 2rem;
+  }
+}
+
+.responsive-margin-y {
+  margin-top: 1rem; /* 16px on mobile */
+  margin-bottom: 1rem;
+  
+  @media (min-width: 768px) {
+    margin-top: 1.5rem; /* 24px on tablet */
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    margin-top: 2rem; /* 32px on desktop */
+    margin-bottom: 2rem;
+  }
+}
+
+/* Responsive grid layouts */
+.responsive-grid-1-2-3 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 column on mobile */
+  gap: 1rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on tablet */
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns on desktop */
+    gap: 2rem;
+  }
+}
+
+.responsive-grid-1-2-4 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 column on mobile */
+  gap: 1rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on tablet */
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 columns on desktop */
+    gap: 2rem;
+  }
+}
+
+/* Flex direction utilities */
+.flex-col-reverse-row {
+  display: flex;
+  flex-direction: column-reverse;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.flex-col-row {
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+/* Text alignment */
+.text-center-left {
+  text-align: center;
+  
+  @media (min-width: 768px) {
+    text-align: left;
+  }
+}
+
+.text-center-right {
+  text-align: center;
+  
+  @media (min-width: 768px) {
+    text-align: right;
+  }
+}
+
+/* Responsive width utilities */
+.w-full-half {
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.w-full-third {
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+  
+  @media (min-width: 1024px) {
+    width: 33.333333%;
+  }
+}
+
+/* Responsive ordering */
+.order-last-first {
+  order: 99;
+  
+  @media (min-width: 768px) {
+    order: -1;
+  }
+}
+
+.order-first-last {
+  order: -1;
+  
+  @media (min-width: 768px) {
+    order: 99;
+  }
+}
+
+/* Smaller icons on mobile */
+.responsive-icon {
+  width: 1rem;
+  height: 1rem;
+  
+  @media (min-width: 768px) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  @media (min-width: 1024px) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* Custom container with responsive padding */
+.responsive-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+  @media (min-width: 640px) {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+  
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  @media (min-width: 1280px) {
+    max-width: 1280px;
+  }
+  
+  @media (min-width: 1536px) {
+    max-width: 1536px;
+  }
+} 
