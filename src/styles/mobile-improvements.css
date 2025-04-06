@@ -1,0 +1,365 @@
+/**
+ * Mobile-specific improvements for Krishlabs website
+ * These styles enhance the mobile user experience by adjusting
+ * font sizes, spacing, and layouts for smaller screens.
+ */
+
+/* Global adjustments for mobile */
+@media screen and (max-width: 767px) {
+  /* Increase base font size for better readability */
+  html {
+    font-size: 16px;
+  }
+  
+  /* Fix any text overflow issues */
+  p, h1, h2, h3, h4, h5, h6, span, a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Improve touch targets for mobile */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Add some breathing room to the main content */
+  main {
+    padding-bottom: 5rem;
+  }
+  
+  /* Ensure images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Better mobile card styles */
+  .bg-black\/20 {
+    padding: 1.25rem !important;
+  }
+  
+  /* Increase spacing between items */
+  .space-y-1 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Make sure lists are properly indented */
+  ul, ol {
+    padding-left: 1.5rem !important;
+  }
+  
+  /* Fix for icons and text alignment */
+  .flex-col {
+    gap: 0.75rem;
+  }
+  
+  /* Make buttons more finger-friendly */
+  button {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* Better contrast for small text */
+  .text-xs, .text-sm {
+    letter-spacing: 0.02em;
+  }
+  
+  /* Fix for job listings on mobile */
+  [class*="rounded-full"] {
+    margin: 0.25rem 0;
+  }
+  
+  /* Bottom padding to account for floating action buttons */
+  .mb-5, .mb-6 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Fix any stretched elements */
+  .w-fit {
+    width: auto !important;
+    display: inline-block;
+  }
+}
+
+/* iPhone-specific adjustments (smaller screens) */
+@media screen and (max-width: 390px) {
+  /* Further adjustments for very small screens */
+  html {
+    font-size: 15px;
+  }
+  
+  /* Reduce padding to maximize content space */
+  .p-4 {
+    padding: 1rem !important;
+  }
+  
+  /* Single column layouts for tight spaces */
+  .flex-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Adjust spacing for very small screens */
+  .gap-2 {
+    gap: 0.5rem !important;
+  }
+  
+  /* Ensure buttons fit */
+  button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* Ensure readable text sizing */
+  .text-xs {
+    font-size: 0.75rem !important;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Add bottom padding to create space for the MobileFAB */
+.pb-mobile-fab {
+  padding-bottom: 5rem !important;
+}
+
+/* Fix for the icons in job listings that were getting stretched */
+.p-3.rounded-full.bg-\[\#f4921e\]\/10.w-fit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  min-width: 2.5rem !important;
+  min-height: 2.5rem !important;
+}
+
+/* Ensure proper gaps between flex items */
+.flex.items-start.gap-2 {
+  gap: 0.75rem !important;
+}
+
+/* Fix for any stretched icons */
+[class*="lucide-"] {
+  flex-shrink: 0;
+}
+
+/* Improved list styling for mobile */
+ul.space-y-2, ol.space-y-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Optimize card bodies on mobile */
+.card-body {
+  padding: 1rem !important;
+}
+
+/* Improve button contrast on mobile */
+.px-4.py-2 {
+  padding: 0.75rem 1rem !important;
+  font-weight: 500 !important;
+}
+
+/* Mobile Improvements CSS */
+
+/* General mobile enhancements */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .MobileMenu-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  
+  .MobileMenu-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .MobileMenu-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .MobileMenu-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  /* Base font size adjustment for mobile */
+  html {
+    font-size: 16px;
+  }
+  
+  /* Improved button touch targets */
+  a, button {
+    min-height: 5px;
+    min-width: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Make sure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improved form elements for touch */
+  input, select, textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  /* Paragraph text improvements */
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  
+  /* Header adjustments */
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  
+  /* Container padding for all sections */
+  [class*="px-"] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Section spacing */
+  [class*="py-12"], [class*="py-16"], [class*="py-20"] {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  /* Grid adjustments */
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Footer adjustments */
+  footer [class*="grid-cols-"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Remove the sharp border/background from hero text section */
+  .absolute.top-1\/2.left-0.right-0.h-\[40vh\].-translate-y-1\/2.bg-black\/20.backdrop-blur-sm.md\:hidden {
+    display: none !important;
+  }
+  
+  /* Improve hero section text visibility without the dark background */
+  .responsive-text-3xl, .responsive-text-xl {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  /* Fix text color in hero section for better contrast */
+  .text-gray-400.mb-6.md\:mb-8.animate-fade-in.animate-delay-300 {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+/* Testimonial Section Specific Improvements */
+@media (max-width: 768px) {
+  /* Testimonials container */
+  .testimonial-container {
+    padding: 0.75rem !important;
+  }
+  
+  /* Enhanced testimonials cards */
+  [class*="rounded-2xl border"] {
+    border-width: 1px !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25) !important;
+  }
+  
+  /* Quote text adjustments */
+  .text-4xl.font-serif {
+    font-size: 2.5rem !important;
+    line-height: 1 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Testimonial text container */
+  .max-h-\[140px\] {
+    max-height: 160px !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Hide duplicate title and subtitle in testimonial slider */
+  .mb-8.text-center {
+    display: none !important;
+  }
+  
+  /* Navigation buttons */
+  [aria-label="Previous testimonial"],
+  [aria-label="Next testimonial"] {
+    width: 36px !important;
+    height: 36px !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    border-color: rgba(244, 146, 30, 0.3) !important;
+  }
+  
+  /* Navigation arrows */
+  [aria-label="Previous testimonial"] svg,
+  [aria-label="Next testimonial"] svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  /* Pagination dots - UPDATED: made much smaller for mobile */
+  [aria-label*="testimonial"].w-2\.5 {
+    width: 6px !important;
+    height: 6px !important;
+    margin: 0 3px !important;
+  }
+  
+  /* Extra small dots for very small screens */
+  @media (max-width: 360px) {
+    [aria-label*="testimonial"].w-2\.5 {
+      width: 5px !important;
+      height: 5px !important;
+      margin: 0 2px !important;
+    }
+  }
+  
+  /* Author section */
+  .border-t.border-\[#f4921e\]\/10 {
+    padding-top: 0.75rem !important;
+  }
+  
+  /* Author avatar */
+  .w-8.h-8.rounded-full {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  /* Author name */
+  .text-white.text-sm.font-medium {
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+  }
+} 

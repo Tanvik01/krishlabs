@@ -12,6 +12,9 @@ import {
     name: string;
     desc: string;
     image: ReactNode;
+    detailedDescription?: string;
+    benefits?: string[];
+    technologies?: string[];
   }
   
   export const Offering: Offer[] = [

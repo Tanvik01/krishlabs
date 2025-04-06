@@ -17,6 +17,7 @@ import Typewriter from './components/text/Typewriter';
 import MobileMenu, { MobileMenuButton } from './components/MobileMenu';
 import MobileFAB from './components/MobileFAB';
 import './styles/responsive.css';
+import './styles/mobile-improvements.css';
 
 interface TechDoodleProps {
   className: string;
@@ -541,52 +542,59 @@ function HomePage({ scrollY }: HomeProps) {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#050109]">
-      {/* Gradient overlay that darkens with scroll */}
+      {/* Gradient overlay that darkens with scroll - ADJUSTED FOR MOBILE */}
       <div 
         className="fixed inset-0 transition-colors duration-300"
         style={{ 
           background: `linear-gradient(to bottom, 
-            rgba(5, 1, 9, ${0.85 + darknessFactor * 0.15}) 0%, 
-            rgba(7, 2, 18, ${0.9 + darknessFactor * 0.1}) 50%, 
-            rgba(5, 1, 9, ${0.95 + darknessFactor * 0.05}) 100%)` 
+            rgba(5, 1, 9, ${0.95 + darknessFactor * 0.05}) 0%, 
+            rgba(7, 2, 18, ${0.98 + darknessFactor * 0.02}) 50%, 
+            rgba(5, 1, 9, ${0.95 + darknessFactor * 0.05}) 100%)`,
+          height: '120vh' // Increased height to cover more area
         }}
       ></div>
       
-      {/* Gradient blobs with enhanced colors */}
+      {/* Gradient blobs with enhanced colors - REPOSITIONED FOR MOBILE */}
       <div className="fixed inset-0 overflow-hidden">
+        {/* Main blob positioned behind text for mobile */}
         <div 
-          className="absolute w-80 h-80 bg-[#f4921e]/10 rounded-full -mt-32 blur-2xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[80vh] bg-[#f4921e]/10 rounded-full blur-3xl"
           style={{ 
-            transform: `translate(${scrollY * 0.05}px, ${scrollY * -0.03}px) rotate(${scrollY * 0.02}deg)`,
-            opacity: Math.max(0.6 - darknessFactor * 0.3, 0.25),
+            opacity: Math.max(0.7 - darknessFactor * 0.3, 0.3),
             willChange: "transform"
           }}
         ></div>
         <div 
-          className="absolute w-64 h-64 bg-[#ff5500]/10 rounded-full -mr-40 -mb-32 blur-2xl"
+          className="absolute w-96 h-96 bg-[#ff5500]/15 rounded-full top-1/3 right-0 blur-3xl"
           style={{ 
-            transform: `translate(${scrollY * -0.05}px, ${scrollY * 0.03}px) rotate(${scrollY * -0.02}deg)`,
-            opacity: Math.max(0.6 - darknessFactor * 0.3, 0.25),
+            transform: `translate(${scrollY * -0.02}px, ${scrollY * 0.01}px) rotate(${scrollY * -0.01}deg)`,
+            opacity: Math.max(0.7 - darknessFactor * 0.3, 0.3),
             willChange: "transform"
           }}
         ></div>
         <div 
-          className="absolute w-64 h-64 bg-[#f4921e]/10 rounded-full -ml-48 -mb-32 blur-2xl"
+          className="absolute w-80 h-80 bg-[#f4921e]/20 rounded-full bottom-1/3 left-0 blur-3xl"
           style={{ 
-            transform: `translate(${scrollY * 0.03}px, ${scrollY * 0.05}px) rotate(${scrollY * 0.01}deg)`,
-            opacity: Math.max(0.6 - darknessFactor * 0.3, 0.25),
+            transform: `translate(${scrollY * 0.01}px, ${scrollY * 0.02}px) rotate(${scrollY * 0.01}deg)`,
+            opacity: Math.max(0.7 - darknessFactor * 0.3, 0.3),
             willChange: "transform"
           }}
         ></div>
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 flex flex-col min-h-screen items-center justify-center responsive-padding pt-8 md:pt-6">
-        {/* Main Content Text - Updated for left alignment with image on right */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between">
-          {/* Text content - Left aligned */}
-          <div className="text-left md:text-left w-full md:w-1/2 pt-0 pr-0 md:pr-8">
-            <h1 className="responsive-text-3xl font-medium leading-tight mb-3 md:mb-4 tracking-wider animate-fade-in animate-delay-200">
+      {/* Additional spotlight effect behind text for mobile */}
+      <div className="fixed top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-gradient-to-r from-[#f4921e]/20 to-[#ff5500]/20 blur-3xl -translate-x-1/2 -translate-y-1/2 opacity-70 md:opacity-0"></div>
+
+      {/* Main Content - CENTERED VERTICALLY */}
+      <div className="relative z-10 flex flex-col min-h-[100vh] items-center justify-center responsive-padding pt-32 pb-40 md:py-24">
+        {/* Text Background Enhancement */}
+        <div className="absolute top-1/2 left-0 right-0 h-[40vh] -translate-y-1/2 bg-black/20 backdrop-blur-sm md:hidden"></div>
+        
+        {/* Main Content Text - CENTERED */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-center my-auto relative z-20">
+          {/* Text content - Left aligned but vertical centered */}
+          <div className="text-left md:text-left w-full md:w-1/2 pr-0 md:pr-8 flex flex-col justify-center">
+            <h1 className="responsive-text-3xl font-medium leading-tight mb-5 md:mb-4 tracking-wider animate-fade-in animate-delay-200 text-3xl">
               <Typewriter
                 text="Transform the way you work."
                 speed={70}
@@ -599,16 +607,45 @@ function HomePage({ scrollY }: HomeProps) {
             </p>
           </div>
           
-          {/* Hero Image - Right side */}
-          <div className="w-full md:w-1/2 animate-fade-in animate-delay-400 mt-2 md:mt-0">
+          {/* Hero Image - Right side - ADJUSTED FOR BETTER PROPORTION */}
+          <div className="hidden md:flex w-full md:w-1/2 animate-fade-in animate-delay-400 mt-2 md:mt-0 justify-center items-center">
             <img
               src="/illustration.png"
               alt="Innovation Illustration"
-              className="w-full max-w-sm mx-auto md:max-w-md"
+              className="w-full max-w-md mx-auto"
             />
           </div>
         </div>
       </div>
+
+      {/* Mobile-specific style - ENHANCED FOR BACKGROUND */}
+      <style
+        type="text/css"
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 768px) {
+              body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              }
+              
+              .responsive-text-3xl {
+                font-size: 2rem !important;
+                line-height: 2.5rem !important;
+                text-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+              }
+              
+              .responsive-text-xl {
+                font-size: 1.125rem !important;
+                line-height: 1.75rem !important;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+              }
+            }
+          `
+        }} 
+      />
 
       {/* Added spacing for better separation */}
       <div className="h-4 md:h-8"></div>
@@ -943,14 +980,14 @@ function TestimonialsSlider() {
     setCurrentIndex(Math.min(index, maxIndex));
   };
   
-  // Auto-play functionality with reduced time
+  // Auto-play functionality
   useEffect(() => {
     let interval: number;
     
     if (!isPaused) {
       interval = window.setInterval(() => {
         nextSlide();
-      }, 8000); // Changed from 5000ms to 3000ms (3 seconds)
+      }, 8000);
     }
     
     return () => {
@@ -960,43 +997,57 @@ function TestimonialsSlider() {
   
   return (
     <div 
-      className="w-full"
+      className="w-full px-4 sm:px-0"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Testimonials wrapper with full-width border */}
-      <div className="relative mb-10 overflow-hidden border-t border-b border-[#f4921e]/10">
-        {/* Removed gradient overlays for edges */}
-        
+      {/* Title and subtitle for mobile - Centered */}
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+          What Clients Say
+        </h2>
+        <p className="text-base text-gray-400">
+          Hear from our satisfied customers.
+        </p>
+      </div>
+      
+      {/* Testimonials wrapper */}
+      <div className="relative mb-10 overflow-hidden">
         {/* Testimonials slider */}
         <div 
-          className="flex transition-transform duration-500 ease-out" /* Changed duration from 700 to 500 */
+          className="flex transition-transform duration-500 ease-out" 
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {testimonials.map((testimonial, index) => (
             <div 
               key={index} 
-              className="min-w-full transition-all duration-300" /* Removed px-4 padding */
+              className="min-w-full transition-all duration-300" 
               style={{ 
-                opacity: index === currentIndex ? 1 : 0.3,
+                opacity: index === currentIndex ? 1 : 0,
                 transform: index === currentIndex ? 'scale(1)' : 'scale(0.95)'
               }}
             >
-              <div className="p-4 sm:p-6 rounded-2xl h-full transform transition-all duration-300 w-full border-2 border-[#f4921e]/70 bg-black/80"> 
-                {/* Full-width card with orange border and darker background */}
-                <div className="flex justify-between mb-2">
-                  <Quote className="w-6 h-6 text-[#f4921e]" />
+              <div className="p-6 rounded-2xl border border-[#f4921e]/30 bg-black/80 shadow-md shadow-[#f4921e]/5 min-h-[260px]"> 
+                {/* Quotation mark */}
+                <div className="flex mb-4 text-[#f4921e]">
+                  <span className="text-4xl font-serif">"</span>
                 </div>
-                <div className="h-[100px] sm:h-[120px] overflow-y-auto pr-2 custom-scrollbar">
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4">
+                
+                {/* Testimonial text */}
+                <div className="mb-6 overflow-y-auto max-h-[140px] pr-2 custom-scrollbar">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {testimonial.quote}
                   </p>
                 </div>
-                <div className="mt-auto border-t border-[#f4921e]/10 pt-3 flex items-center">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#f4921e]/20 flex items-center justify-center bg-black/30">
-                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#f4921e]" />
+                
+                {/* Author info */}
+                <div className="flex items-center mt-auto pt-3 border-t border-[#f4921e]/10">
+                  <div className="w-8 h-8 rounded-full bg-[#f4921e]/20 flex items-center justify-center">
+                    <User className="w-4 h-4 text-[#f4921e]" />
                   </div>
-                  <span className="text-white font-medium ml-3 text-sm">{testimonial.name}</span>
+                  <div className="ml-3">
+                    <p className="text-white text-sm font-medium">{testimonial.name}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1004,41 +1055,65 @@ function TestimonialsSlider() {
         </div>
       </div>
       
-      {/* Navigation controls */}
-      <div className="flex items-center justify-between w-full px-4">
-        {/* Pagination indicators */}
-        <div className="flex space-x-3">
+      {/* Navigation controls - Centered for Mobile */}
+      <div className="flex flex-col items-center">
+        {/* Pagination dots */}
+        <div className="flex space-x-2 mb-6">
           {Array.from({ length: totalTestimonials }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                 index === currentIndex ? 
-                'bg-[#f4921e] w-6' : 'bg-white/20 hover:bg-white/40'
+                'bg-[#f4921e]' : 'bg-gray-600 hover:bg-gray-500'
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Go to testimonial ${index + 1}`}
             />
           ))}
         </div>
         
-        {/* Next/Prev buttons */}
-        <div className="flex space-x-4">
+        {/* Next/Prev buttons - More compact for mobile */}
+        <div className="flex space-x-3">
           <button 
             onClick={prevSlide}
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30 border border-white/10 text-white hover:border-[#f4921e]/30 hover:bg-black/50 transition-all transform hover:-translate-x-1"
+            className="w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-[#f4921e]/20 border border-[#f4921e]/20 transition-all"
             aria-label="Previous testimonial"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
           <button 
             onClick={nextSlide}
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30 border border-white/10 text-white hover:border-[#f4921e]/30 hover:bg-black/50 transition-all transform hover:translate-x-1"
+            className="w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-[#f4921e]/20 border border-[#f4921e]/20 transition-all"
             aria-label="Next testimonial"
           >
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
         </div>
       </div>
+      
+      {/* Mobile-specific style adjustments */}
+      <style
+        type="text/css"
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 768px) {
+              .custom-scrollbar {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+              }
+              .custom-scrollbar::-webkit-scrollbar {
+                display: none;
+              }
+              
+              /* Ensure text is readable */
+              p.text-gray-300 {
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+              }
+            }
+          `
+        }} 
+      />
     </div>
   );
 }

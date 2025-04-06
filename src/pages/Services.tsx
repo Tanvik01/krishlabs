@@ -52,21 +52,21 @@ const Services = () => {
                 {Offering.map((offer) => (
                   <div
                     key={offer.id}
-                    className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:shadow-[0_0_25px_rgba(244,146,30,0.1)] transition-all duration-300"
+                    className="bg-black/20 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-white/5 hover:shadow-[0_0_25px_rgba(244,146,30,0.1)] transition-all duration-300"
                   >
                     <div className="flex flex-col h-full">
-                      <div className="p-3 rounded-full bg-[#f4921e]/10 w-fit mb-6">
+                      <div className="p-3 rounded-full bg-[#f4921e]/10 w-fit mb-4 sm:mb-6">
                         <div className="text-[#f4921e]">{offer.image}</div>
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-4">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                         {offer.name}
                       </h3>
-                      <p className="text-gray-300 mb-6">
+                      <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6">
                         {offer.desc}
                       </p>
-                      <Link to={`/services/${offer.id}`} className="mt-auto">
-                        <button className="px-8 py-3.5 text-white font-medium rounded-xl bg-gradient-to-r from-[#f4921e] to-[#ff5500] hover:from-[#ff5500] hover:to-[#f4921e] shadow-lg shadow-[#f4921e]/20 hover:shadow-[#f4921e]/40 transform hover:scale-[1.02] transition-all duration-300 flex items-center">
-                          Learn More <ArrowRight className="ml-2" size={20} />
+                      <Link to={`/services/${offer.id}`} className="mt-auto w-full sm:w-auto">
+                        <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 text-white font-medium rounded-xl bg-gradient-to-r from-[#f4921e] to-[#ff5500] hover:from-[#ff5500] hover:to-[#f4921e] shadow-lg shadow-[#f4921e]/20 hover:shadow-[#f4921e]/40 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center sm:justify-start">
+                          Learn More <ArrowRight className="ml-2" size={18} />
                         </button>
                       </Link>
                     </div>
